@@ -7,30 +7,24 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-public class ServerChatPlayerListener implements Listener
+public class ServerChatPlayerListener implements Listener 
 {
 	private final HiddenChat plugin;	
 	
-	ServerChatPlayerListener(HiddenChat plugin)
-	{
+	ServerChatPlayerListener(HiddenChat plugin) {
         this.plugin = plugin;
     }
 	
 	@EventHandler
-	public void onPlayerChat(final AsyncPlayerChatEvent event)
-	{
+	public void onPlayerChat(final AsyncPlayerChatEvent event) {
 		String message = event.getMessage();
 		
-		if(message.startsWith("P "))
-		{
-			plugin.getServer().getScheduler().callSyncMethod(plugin, new Callable<Void>()
-			{
+		if(message.startsWith("P ")) {
+			plugin.getServer().getScheduler().callSyncMethod(plugin, new Callable<Void>() {
 				@Override
-				public Void call()
-				{
+				public Void call() {
 					String message = String.format(event.getFormat(), event.getPlayer().getDisplayName(), event.getMessage());
-					for(Player p : plugin.getServer().getOnlinePlayers())
-					{
+					for(Player p : plugin.getServer().getOnlinePlayers()) {
 						p.sendMessage(message);
 					}
 					return null;
